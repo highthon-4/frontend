@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputStateType } from "./types";
 import { Container, ErrorMessage, StyledInput, Title } from "./style";
 import { useFormContext } from "react-hook-form";
@@ -11,17 +11,25 @@ const Input = ({
   type,
   pattern,
   isInvisible,
+  placeholder,
+  isError,
 }: {
   title?: string;
+  placeholder?: string;
   errorMessage?: string;
   name: string;
   type?: "password";
   pattern?: RegExp;
   isInvisible?: boolean;
+  isError?: boolean;
 }) => {
   const [inputState, setInputState] = useState<InputStateType>("default");
   const { register, watch } = useFormContext();
   const value = watch(name);
+
+  useEffect(() => {
+    isError && setInputState("error");
+  }, [isError]);
 
   return (
     <Container
@@ -38,15 +46,15 @@ const Input = ({
       <StyledInput
         {...register(name, { required: !isInvisible, pattern: pattern })}
         width={360}
-        placeholder={title}
+        placeholder={placeholder ?? title}
         state={inputState}
         onFocus={() => {
-          inputState !== "error" && setInputState("active");
+          if (inputState === "error") return;
+          setInputState("active");
         }}
         onBlur={() => {
-          inputState !== "error" && value
-            ? setInputState("enabled")
-            : setInputState("default");
+          if (inputState === "error") return;
+          value ? setInputState("enabled") : setInputState("default");
         }}
         type={type}
       />

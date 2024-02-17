@@ -35,7 +35,7 @@ export const StyledInput = styled.input<{
     color: ${palette.gray.gray400};
   }
   &:focus {
-    ${({ state }) => state && `border-bottom: 2px solid ${ColorState.active};`}
+    ${({ state }) => state && `border-bottom: 2px solid ${ColorState[state]};`}
   }
   &:focus-visible {
     outline: none;
@@ -58,5 +58,8 @@ export const ErrorMessage = styled.span<{
   textColor?: string;
 }>`
   ${({ fontSize }) => fontSize && `font-size: ${fontSize}px;`}
-  ${({ textColor }) => textColor && `color: ${palette.red.red100};`}
+  color:${palette.red.red100};
+  position: absolute;
+  left: 0;
+  bottom: -16px;
 `;
