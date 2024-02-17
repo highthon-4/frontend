@@ -19,7 +19,7 @@ const Landing = () => {
         width: "100%",
         height: "100vh",
         backgroundColor: palette.gray.gray1100,
-        padding: "0 145px",
+        padding: "0 50px",
         boxSizing: "border-box",
       }}
       justify="center"
@@ -41,6 +41,7 @@ const Landing = () => {
           width: "100%",
           position: "relative",
         }}
+        justify="between"
       >
         <img src={leftText} alt="leftText" style={{zIndex: 1}} />
         <div ref={ref} onClick={() => navigate("/login")}>
@@ -75,7 +76,7 @@ const MiddleContainer = styled(Flex)``;
 const StartButton = styled.button`
   z-index: 3;
   position: absolute;
-  left: 50%;
+  left: 53%;
   top: 50%;
   transform: translate(-50%, -50%);
   background: none;
@@ -85,7 +86,7 @@ const StartButton = styled.button`
 
 const FlyingPersonImg = styled.img`
   position: absolute;
-  left: 50%;
+  left: 53%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
