@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { getUserInfo, login, signup } from ".";
+import { getLogout, getUserInfo, login, signup } from ".";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
@@ -11,7 +11,7 @@ export const useLogin = () => {
     }) => {
       if (data.header.result === "success") {
         localStorage.setItem("token", data.body.token);
-        navigate("/chat");
+        navigate("/main");
       } else alert(data.header.message);
     },
   });
@@ -38,4 +38,13 @@ export const useSignUp = ({ id, pwd }: { id: string; pwd: string }) => {
 
 export const useGetUserInfo = () => {
   return useQuery("userInfo", getUserInfo);
+};
+
+export const useLogout = () => {
+  const navigate = useNavigate();
+  return useMutation(getLogout, {
+    onSuccess: () => {
+      navigate("/");
+    },
+  });
 };

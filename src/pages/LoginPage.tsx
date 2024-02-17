@@ -26,7 +26,6 @@ function LoginPage() {
         onSubmit={handleSubmit((data: FieldValues) => {
           console.log(data);
           mutate(data as { id: string; pwd: string });
-          navigate("/");
         })}
       >
         <MiddleContainer direction="column" gap={54}>
@@ -52,13 +51,13 @@ function LoginPage() {
             </SignUpLink>
           </ButtonContainer>
         </MiddleContainer>
-        <button
+        {/* <button
           onClick={() => {
             fetch("https://highthon9th.gdre.dev/counselor/load-history/");
           }}
         >
           cors테스트
-        </button>
+        </button> */}
       </form>
     </Container>
   );

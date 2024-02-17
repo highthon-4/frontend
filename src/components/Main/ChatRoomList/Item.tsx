@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Flex from "../../common/Flex";
-import {ChatRoom} from "../../../models/chat";
+import { ChatRoom } from "../../../models/chat";
 import AdvisorHero from "../../common/AdvisorHero";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   chatRoom: ChatRoom;
 };
 
-const ChatRoomListItem = ({chatRoom}: Props) => {
+const ChatRoomListItem = ({ chatRoom }: Props) => {
   const navigate = useNavigate();
 
   return (
@@ -38,9 +38,9 @@ const ChatRoomListItem = ({chatRoom}: Props) => {
             WebkitLineClamp: 1,
           }}
         >
-          {chatRoom.response}
+          {chatRoom.response ?? "대화를 시작해보세요!"}
         </p>
-        <p style={{fontSize: "16px", color: "white"}}>
+        <p style={{ fontSize: "16px", color: "white" }}>
           {chatRoom.last_chatted}
         </p>
       </Flex>

@@ -96,3 +96,28 @@ export const getUserInfo = async () => {
     throw error;
   }
 };
+
+export const getLogout = async () => {
+  try {
+    const response = await fetch("https://highthon9th.gdre.dev/auth/signout/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + btoa(localStorage.token + ":"),
+      },
+      // body: JSON.stringify(),
+    });
+
+    if (!response.ok) {
+      // 에러 응답 처리
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error: any) {
+    // 예외 처리
+    console.error("Error during login:", error.message);
+    throw error;
+  }
+};

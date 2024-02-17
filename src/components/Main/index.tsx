@@ -10,7 +10,7 @@ import Flex from "../common/Flex";
 import AdvisorSection from "./ChatList/AdvisorSection";
 import ChatList from "./ChatList";
 import { useGetUserInfo } from "../../apis/user/hooks";
-import { useChatDetail, useChatList } from "../../apis/chat/hooks";
+import { useChatDetail, useChatList, useNewChat } from "../../apis/chat/hooks";
 
 const MOCK_CHAT_ROOM_LIST: ChatRoom[] = [
   {
@@ -110,13 +110,12 @@ const Main = () => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   // const { data, isSuccess } = useGetUserInfo();
-  const [myInfo, setMyInfo] = useState();
   const session = searchParams.get("session")!;
 
   const { data: chatList, isSuccess: chatListIsSuccess } = useChatList();
-  const { data: chatDetail, isSuccess: chatDetailIsSuccess } = useChatDetail(
-    searchParams.get("session")!
-  );
+  const { data: chatDetail, isSuccess: chatDetailIsSuccess } =
+    useChatDetail(session);
+  const { mutate } = useNewChat();
   console.log(chatDetail);
   // useEffect(() => {
   //   if (isSuccess) setMyInfo(data.body.data);
@@ -134,14 +133,15 @@ const Main = () => {
         <ChatRoomList chatRoomList={chatList.body.sessions} />
       )}
       {search.includes("create") && (
-        <AdvisorSelectForm
-          onChangeType={() => navigate(`/main?type=view&session=1`)}
-        />
+        <AdvisorSelectForm onChangeType={(type) => mutate(type)} />
       )}
       {chatDetailIsSuccess && search.includes("view") && (
         <Flex customStyle={{ width: "100%" }}>
-          <AdvisorSection type="sensuous" />
-          <ChatList advisorType="ideal" chatList={chatDetail.body.history} />
+          <AdvisorSection type={chatDetail.body.type} />
+          <ChatList
+            advisorType={chatDetail.body.type}
+            chatList={chatDetail.body.history}
+          />
         </Flex>
       )}
     </Container>
