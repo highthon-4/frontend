@@ -9,26 +9,35 @@ const Input = ({
   errorMessage,
   name,
   type,
+  pattern,
+  isInvisible,
 }: {
   title?: string;
   errorMessage?: string;
   name: string;
   type?: "password";
+  pattern?: RegExp;
+  isInvisible?: boolean;
 }) => {
   const [inputState, setInputState] = useState<InputStateType>("default");
   const { register, watch } = useFormContext();
   const value = watch(name);
 
   return (
-    <Container customStyle={{ position: "relative" }}>
+    <Container
+      customStyle={{
+        position: "relative",
+        visibility: isInvisible ? "hidden" : "initial",
+      }}
+    >
       {inputState !== "default" && (
         <Title fontSize={12} state={inputState}>
           {title}
         </Title>
       )}
       <StyledInput
-        {...register(name)}
-        width={320}
+        {...register(name, { required: !isInvisible, pattern: pattern })}
+        width={360}
         placeholder={title}
         state={inputState}
         onFocus={() => {
