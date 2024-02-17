@@ -30,5 +30,5 @@ export const palette = {
     gray1000: "#25282D",
     gray1100: "#14171E",
   },
-  primary: "#1D2A59",
+  primary: "#4567DD",
 };
