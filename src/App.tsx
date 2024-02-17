@@ -1,8 +1,10 @@
-import {BrowserRouter} from "react-router-dom";
-import {QueryClient, QueryClientProvider} from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import AppRouter from "./router";
 import "./styles/globalFont.css";
 import "./styles/reset.css";
+
+import { useForm, FormProvider } from "react-hook-form";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,11 +17,15 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  const methods = useForm();
+
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <FormProvider {...methods}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </FormProvider>
     </QueryClientProvider>
   );
 }
