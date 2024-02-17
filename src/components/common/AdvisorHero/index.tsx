@@ -1,4 +1,4 @@
-import {AdvisorType} from "../../../models/advisor";
+import { AdvisorType } from "../../../models/advisor";
 import idealAdvisor from "../../../assets/images/advisor/idealAdvisor.svg";
 import realisticAdvisor from "../../../assets/images/advisor/realisticAdvisor.svg";
 import sensuousAdvisor from "../../../assets/images/advisor/sensuousAdvisor.svg";
@@ -11,7 +11,7 @@ export const ADVISOR_SVG_MAP: Record<AdvisorType, string> = {
 
 export const ADVISOR_TEXT_MAP: Record<
   AdvisorType,
-  {title: string; description: string}
+  { title: string; description: string }
 > = {
   realistic: {
     title: "감각적인 사람",
@@ -23,7 +23,7 @@ export const ADVISOR_TEXT_MAP: Record<
   },
   sensuous: {
     title: "이상적인 사람",
-    description: "현실적인 방향으로 조언을 건내요",
+    description: "현실적인 방향으로 조언을 건네요",
   },
 };
 
@@ -32,9 +32,9 @@ type Props = {
   customStyle?: React.CSSProperties;
 };
 
-const AdvisorHero = ({type, customStyle}: Props) => {
+const AdvisorHero = ({ type, customStyle }: Props) => {
   return (
-    <img alt={type} src={ADVISOR_SVG_MAP[type]} style={{...customStyle}} />
+    <img alt={type} src={ADVISOR_SVG_MAP[type]} style={{ ...customStyle }} />
   );
 };
 

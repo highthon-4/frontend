@@ -1,14 +1,16 @@
 import styled from "styled-components";
-import {palette} from "../../styles/palette";
-import {Chat, ChatRoom} from "../../models/chat";
-import {useLocation, useNavigate} from "react-router-dom";
+import { palette } from "../../styles/palette";
+import { Chat, ChatRoom } from "../../models/chat";
+import { useLocation, useNavigate } from "react-router-dom";
 import AdvisorSelectForm from "./AdvisorSelectForm";
-import {AdvisorType} from "../../models/advisor";
-import {useState} from "react";
+import { AdvisorType } from "../../models/advisor";
+import { useEffect, useState } from "react";
 import ChatRoomList from "./ChatRoomList";
 import Flex from "../common/Flex";
 import AdvisorSection from "./ChatList/AdvisorSection";
 import ChatList from "./ChatList";
+import { useGetUserInfo } from "../../apis/user/hooks";
+import { useChatDetail, useChatList } from "../../apis/chat/hooks";
 
 const MOCK_CHAT_ROOM_LIST: ChatRoom[] = [
   {
@@ -105,26 +107,41 @@ const MOCK_CHAT_LIST: Chat[] = [
 ];
 
 const Main = () => {
-  const {search} = useLocation();
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  // const { data, isSuccess } = useGetUserInfo();
+  const [myInfo, setMyInfo] = useState();
+  const session = searchParams.get("session")!;
 
+  const { data: chatList, isSuccess: chatListIsSuccess } = useChatList();
+  const { data: chatDetail, isSuccess: chatDetailIsSuccess } = useChatDetail(
+    searchParams.get("session")!
+  );
+  console.log(chatDetail);
+  // useEffect(() => {
+  //   if (isSuccess) setMyInfo(data.body.data);
+  // }, [isSuccess, data]);
   const navigate = useNavigate();
+
+  // console.log(myInfo);
 
   const [selectedAdvisorType, setSelectedAdvisorType] = useState<
     AdvisorType | undefined
   >(undefined);
-
   return (
     <Container>
-      <ChatRoomList chatRoomList={MOCK_CHAT_ROOM_LIST} />
+      {chatListIsSuccess && (
+        <ChatRoomList chatRoomList={chatList.body.sessions} />
+      )}
       {search.includes("create") && (
         <AdvisorSelectForm
           onChangeType={() => navigate(`/main?type=view&session=1`)}
         />
       )}
-      {search.includes("view") && (
-        <Flex customStyle={{width: "100%"}}>
+      {chatDetailIsSuccess && search.includes("view") && (
+        <Flex customStyle={{ width: "100%" }}>
           <AdvisorSection type="sensuous" />
-          <ChatList advisorType="ideal" chatList={MOCK_CHAT_LIST} />
+          <ChatList advisorType="ideal" chatList={chatDetail.body.history} />
         </Flex>
       )}
     </Container>

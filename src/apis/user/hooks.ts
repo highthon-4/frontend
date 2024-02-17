@@ -1,5 +1,5 @@
-import { useMutation } from "react-query";
-import { login, signup } from ".";
+import { useMutation, useQuery } from "react-query";
+import { getUserInfo, login, signup } from ".";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
@@ -34,4 +34,8 @@ export const useSignUp = ({ id, pwd }: { id: string; pwd: string }) => {
       },
     }
   );
+};
+
+export const useGetUserInfo = () => {
+  return useQuery("userInfo", getUserInfo);
 };
