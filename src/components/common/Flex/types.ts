@@ -1,5 +1,3 @@
-import React from "react";
-
 export type FlexJustifyType = "center" | "start" | "end" | "between" | "around";
 export type FlexAlignType = "start" | "end" | "center" | "baseline";
 export type FlexDirectionType = "row" | "column";
