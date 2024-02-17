@@ -3,20 +3,19 @@ import Logo from "../assets/images/logo.svg";
 import Flex from "../components/common/Flex";
 import styled from "styled-components";
 import Button from "../components/common/Button";
-import { useFormContext } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { palette } from "../styles/palette";
+import {useFormContext} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import {palette} from "../styles/palette";
 
 function LoginPage() {
-  const { formState, handleSubmit, watch } = useFormContext();
+  const {formState, handleSubmit} = useFormContext();
   const navigate = useNavigate();
-  console.log(watch());
   return (
     <Container
       direction="column"
       justify="center"
       align="center"
-      customStyle={{ height: "100vh" }}
+      customStyle={{height: "100vh"}}
       gap={80}
     >
       <img src={Logo} alt="logo" />

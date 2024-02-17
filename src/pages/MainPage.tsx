@@ -1,5 +1,7 @@
+import Main from "../components/Main";
+
 const MainPage = () => {
-  return <div>드림건설</div>;
+  return <Main />;
 };
 
 export default MainPage;
