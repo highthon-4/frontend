@@ -1,7 +1,8 @@
 import {BrowserRouter} from "react-router-dom";
-import "./App.css";
 import {QueryClient, QueryClientProvider} from "react-query";
 import AppRouter from "./router";
+import "./styles/globalFont.css";
+import "./styles/reset.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
