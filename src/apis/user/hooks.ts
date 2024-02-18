@@ -2,8 +2,12 @@ import { useMutation, useQuery } from "react-query";
 import { getLogout, getUserInfo, login, signup } from ".";
 import { useNavigate } from "react-router-dom";
 
+export const useGetUserInfo = () => {
+  return useQuery(["user", "info"], getUserInfo);
+};
 export const useLogin = () => {
   const navigate = useNavigate();
+  const { refetch } = useGetUserInfo();
   return useMutation((data: { id: string; pwd: string }) => login(data), {
     onSuccess: (data: {
       header: { result: string; message: string };
@@ -12,7 +16,10 @@ export const useLogin = () => {
       if (data.header.result === "success") {
         localStorage.setItem("token", data.body.token);
         navigate("/main");
-      } else alert(data.header.message);
+        refetch();
+        return;
+      }
+      alert(data.header.message);
     },
   });
 };
@@ -30,14 +37,12 @@ export const useSignUp = ({ id, pwd }: { id: string; pwd: string }) => {
         if (data.header.result === "success") {
           alert("계정 생성이 완료되었습니다.");
           mutate({ id, pwd });
-        } else alert(data.header.message);
+          return;
+        }
+        alert(data.header.message);
       },
     }
   );
-};
-
-export const useGetUserInfo = () => {
-  return useQuery("userInfo", getUserInfo);
 };
 
 export const useLogout = () => {
@@ -45,6 +50,7 @@ export const useLogout = () => {
   return useMutation(getLogout, {
     onSuccess: () => {
       navigate("/");
+      localStorage.removeItem("token");
     },
   });
 };

@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import AdvisorSelectItem from "./AdvisorSelectItem";
-import {AdvisorType} from "../../../models/advisor";
+import { AdvisorType } from "../../../models/advisor";
 
 type Props = {
   onChangeType: (type: AdvisorType) => void;
 };
 
-const AdvisorSelectForm = ({onChangeType}: Props) => {
+const AdvisorSelectForm = ({ onChangeType }: Props) => {
   return (
     <Container>
       <AdvisorSelectItem type="sensuous" onChangeType={onChangeType} />
-      <AdvisorSelectItem type="ideal" onChangeType={onChangeType} />
       <AdvisorSelectItem type="realistic" onChangeType={onChangeType} />
+      <AdvisorSelectItem type="ideal" onChangeType={onChangeType} />
     </Container>
   );
 };

@@ -2,6 +2,6 @@
 
 export const CHAT_QUERY_KEY = {
   default: () => ["chat"],
-  chatList: () => [...CHAT_QUERY_KEY.default(), "list"],
+  chatList: (id: string) => [...CHAT_QUERY_KEY.default(), "list", id],
   chatDetail: (session: string) => [...CHAT_QUERY_KEY.default(), session],
 };

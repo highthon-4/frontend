@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ChatRoomListItem from "./Item";
 import { useLogout } from "../../../apis/user/hooks";
 import { relative } from "path";
+import { palette } from "../../../styles/palette";
 
 type Props = {
   chatRoomList: ChatRoom[];
@@ -55,15 +56,16 @@ const AddChatButton = styled.button`
 `;
 
 const LogOutButton = styled.button`
-  width: 100%;
+  width: 424px;
   min-height: 98px;
   padding: 0 40px;
   display: flex;
-  position: absolute;
+  z-index: 100;
+  position: fixed;
   bottom: 0;
   align-items: center;
   gap: 8px;
-  background: none;
+  background: ${palette.gray.gray1100};
   border: none;
   cursor: pointer;
 `;

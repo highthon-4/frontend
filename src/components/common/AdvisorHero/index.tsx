@@ -4,8 +4,8 @@ import realisticAdvisor from "../../../assets/images/advisor/realisticAdvisor.sv
 import sensuousAdvisor from "../../../assets/images/advisor/sensuousAdvisor.svg";
 
 export const ADVISOR_SVG_MAP: Record<AdvisorType, string> = {
-  realistic: realisticAdvisor,
-  ideal: idealAdvisor,
+  realistic: idealAdvisor,
+  ideal: realisticAdvisor,
   sensuous: sensuousAdvisor,
 };
 
@@ -13,17 +13,17 @@ export const ADVISOR_TEXT_MAP: Record<
   AdvisorType,
   { title: string; description: string }
 > = {
-  realistic: {
+  sensuous: {
     title: "감각적인 사람",
     description: "감각적으로 부드러운 답변을 제공해요",
   },
   ideal: {
     title: "현실적인 사람",
-    description: "냉철한 이성으로 방법을 제시해요",
-  },
-  sensuous: {
-    title: "이상적인 사람",
     description: "현실적인 방향으로 조언을 건네요",
+  },
+  realistic: {
+    title: "이상적인 사람",
+    description: "냉철한 이성으로 방법을 제시해요",
   },
 };
 

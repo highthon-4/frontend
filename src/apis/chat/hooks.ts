@@ -6,10 +6,19 @@ import { addChat, getChatDetail, getChatList, getNewChat } from ".";
 import { CHAT_QUERY_KEY } from "./keys";
 import { AdvisorType } from "../../models/advisor";
 import { useNavigate } from "react-router-dom";
+import { useGetUserInfo } from "../user/hooks";
 
-export const useChatList = () =>
-  useQuery(CHAT_QUERY_KEY.chatList(), getChatList);
-
+export const useChatList = () => {
+  const { data, isSuccess } = useGetUserInfo();
+  console.log(CHAT_QUERY_KEY.chatList(data?.body.data?.id ?? -1));
+  return useQuery(
+    CHAT_QUERY_KEY.chatList(data?.body.data?.id ?? -1),
+    getChatList,
+    {
+      enabled: isSuccess,
+    }
+  );
+};
 export const useChatDetail = (session: string) =>
   useQuery(CHAT_QUERY_KEY.chatDetail(session), () => getChatDetail(session));
 
